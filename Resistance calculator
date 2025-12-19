@@ -1,0 +1,62 @@
+//Resistance calculation using colour code//
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int getColorValue(char color[]) {
+    if (strcmp(color, "black") == 0) return 0;
+    if (strcmp(color, "brown") == 0) return 1;
+    if (strcmp(color, "red") == 0) return 2;
+    if (strcmp(color, "orange") == 0) return 3;
+    if (strcmp(color, "yellow") == 0) return 4;
+    if (strcmp(color, "green") == 0) return 5;
+    if (strcmp(color, "blue") == 0) return 6;
+    if (strcmp(color, "violet") == 0) return 7;
+    if (strcmp(color, "gray") == 0) return 8;
+    if (strcmp(color, "white") == 0) return 9;
+    return -1;
+}
+
+float getTolerance(char color[]) {
+    if (strcmp(color, "gold") == 0) return 5.0;
+    if (strcmp(color, "silver") == 0) return 10.0;
+    return 0.0;
+}
+
+int main() {
+    char band1[10], band2[10], band3[10], band4[10];
+    int digit1, digit2, multiplier;
+    float tolerance;
+    double resistance;
+
+    printf("Enter 4 resistor colors (lowercase):\n");
+    printf("Band 1: ");
+    scanf("%s", band1);
+    printf("Band 2: ");
+    scanf("%s", band2);
+    printf("Band 3 (multiplier): ");
+    scanf("%s", band3);
+    printf("Band 4 (tolerance): ");
+    scanf("%s", band4);
+
+    digit1 = getColorValue(band1);
+    digit2 = getColorValue(band2);
+    multiplier = getColorValue(band3);
+    tolerance = getTolerance(band4);
+
+    if (digit1 == -1 || digit2 == -1 || multiplier == -1) {
+        printf("Invalid color entered.\n");
+        return 1;
+    }
+
+    resistance = ((digit1 * 10) + digit2) * pow(10, multiplier);
+
+    printf("\nResistance Value: %.0f ohms\n", resistance);
+    if (tolerance != 0.0)
+        printf("Tolerance: ±%.1f%%\n", tolerance);
+    else
+        printf("Tolerance: Unknown\n");
+
+    return 0;
+}
